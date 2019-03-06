@@ -1,0 +1,24 @@
+{
+  "name": "eos/com-view-client-bundle",
+  "description": "Symfony integration for eos/com-view-client",
+  "type": "symfony-bundle",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Paul Gütschow",
+      "email": "guetschow@eosnewmedia.de"
+    }
+  ],
+  "minimum-stability": "stable",
+  "require": {
+    "php": ">=7.2",
+    "ext-json": "*",
+    "symfony/framework-bundle": "^4.0",
+    "eos/com-view-client": "^1.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Eos\\Bundle\\ComView\\Client\\": "src"
+    }
+  }
+}
