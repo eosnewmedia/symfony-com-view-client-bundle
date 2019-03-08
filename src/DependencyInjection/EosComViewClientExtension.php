@@ -15,31 +15,26 @@ use Symfony\Component\HttpKernel\DependencyInjection\ConfigurableExtension;
  */
 class EosComViewClientExtension extends ConfigurableExtension
 {
-
     /**
      * @param array $mergedConfig
      * @param ContainerBuilder $container
      */
     protected function loadInternal(array $mergedConfig, ContainerBuilder $container): void
     {
-
-        $registry = $container->autowire(ComViewClientRegistry::class)->setPublic(false);
-        $container->setAlias(ComViewClientRegistryInterface::class, ComViewClientRegistry::class)->setPublic(true);
+        $container->autowire(ComViewClientRegistry::class)->setPublic(false);
+        $container->setAlias(ComViewClientRegistryInterface::class, ComViewClientRegistry::class)->setPublic(false);
 
         foreach ($mergedConfig['clients'] as $name => $config) {
+            $serviceId = 'eos.com_view.client.' . $name;
 
-            $client = $container
-                ->autowire('enm.com_view_client.'.$name, ComViewClient::class)
+            $container->autowire($serviceId, ComViewClient::class)
                 ->setArgument('$baseUrl', $config['base_uri'])
-                ->setPublic(false);
+                ->setPublic(false)
+                ->addTag('com_view.client', ['client' => $name]);
 
-            $registry->addMethodCall(
-                'addClient',
-                [$name, $client,]
-            );
+            if (!$container->hasDefinition(ComViewClient::class) && !$container->hasAlias(ComViewClient::class)) {
+                $container->setAlias(ComViewClient::class, $serviceId)->setPublic(false);
+            }
         }
-
     }
-
-
 }

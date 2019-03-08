@@ -13,7 +13,6 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
  */
 class Configuration implements ConfigurationInterface
 {
-
     /**
      * @return TreeBuilder|\Symfony\Component\Config\Definition\Builder\TreeBuilder
      */
@@ -26,7 +25,6 @@ class Configuration implements ConfigurationInterface
         /** @var ArrayNodeDefinition $clients */
         $clients = $root->arrayNode('clients')
             ->useAttributeAsKey('name')
-            ->requiresAtLeastOneElement()
             ->prototype('array');
 
         $client = $clients->children();
@@ -36,9 +34,6 @@ class Configuration implements ConfigurationInterface
             ->cannotBeEmpty()
             ->info('The base uri which should be used on api calls.');
 
-
         return $treeBuilder;
     }
-
-
 }
