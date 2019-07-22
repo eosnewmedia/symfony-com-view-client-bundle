@@ -3,12 +3,12 @@ declare(strict_types=1);
 
 namespace Eos\Bundle\ComView\Client\Exception;
 
-use Eos\ComView\Client\Exception\ComViewException;
+use RuntimeException;
 
 /**
  * @author Philipp Marien <marien@eosnewmedia.de>
  */
-class MissingClientException extends ComViewException
+class MissingClientException extends RuntimeException
 {
     /**
      * @param string $name
