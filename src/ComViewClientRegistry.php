@@ -33,7 +33,7 @@ class ComViewClientRegistry implements ComViewClientRegistryInterface
      */
     public function getClient(string $name): ComViewClient
     {
-        if (\array_key_exists($name, $this->clients)) {
+        if (array_key_exists($name, $this->clients)) {
             return $this->clients[$name];
         }
 
